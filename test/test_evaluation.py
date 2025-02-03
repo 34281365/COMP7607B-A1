@@ -27,4 +27,4 @@ def test_get_query_embed(
     w3_embed: torch.Tensor,
     expected: torch.Tensor,
 ):
-    get_query_embed(w1_embed, w2_embed, w3_embed) == expected
+    assert get_query_embed(w1_embed, w2_embed, w3_embed) == expected
