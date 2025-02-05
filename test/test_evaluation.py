@@ -11,13 +11,13 @@ import torch
             torch.Tensor([1, 2, 3]),
             torch.Tensor([4, 5, 6]),
             torch.Tensor([7, 8, 9]),
-            torch.Tensor([-2, -1, 0]),
+            torch.Tensor([4, 5, 6]),
         ),
         (
             torch.Tensor([3, 2, 1]),
             torch.Tensor([4, 5, 6]),
             torch.Tensor([7, 8, 9]),
-            torch.Tensor([0, -1, -2]),
+            torch.Tensor([6, 5, 4]),
         ),
     ],
 )
@@ -27,4 +27,4 @@ def test_get_query_embed(
     w3_embed: torch.Tensor,
     expected: torch.Tensor,
 ):
-    assert get_query_embed(w1_embed, w2_embed, w3_embed) == expected
+    assert torch.equal(get_query_embed(w1_embed, w2_embed, w3_embed), expected)
