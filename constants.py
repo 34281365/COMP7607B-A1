@@ -1,4 +1,5 @@
 # Data and Preprocessing Constants
+SEED = 42  # Random seed for reproducibility
 TEXT8_DATASET_PATH = "data/text8"  # Replace with your actual path if it's different
 MIN_FREQ = 5  # Minimum word frequency for inclusion in the vocabulary
 MAX_VOCAB_SIZE = 30000  # Maximum size of the vocabulary
