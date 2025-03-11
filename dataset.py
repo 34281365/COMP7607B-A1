@@ -61,6 +61,20 @@ class Vocabulary:
         specified in the configuration.
         """
         # Write Your Code Here
+        # Filter words with frequency >= min_freq
+        frequent_words = [(word, count) for word, count in self.word_counts.items() 
+                            if count >= self.config.min_freq]
+    
+        # Sort by frequency (descending) and then alphabetically for ties
+        frequent_words.sort(key=lambda x: (-x[1], x[0]))
+    
+        # Limit to max_vocab_size if specified
+        if self.config.max_vocab_size:
+            frequent_words = frequent_words[:self.config.max_vocab_size]
+    
+        # Create mappings
+        self.word2idx = {word: idx for idx, (word, _) in enumerate(frequent_words)}
+        self.idx2word = {idx: word for word, idx in self.word2idx.items()}
         pass
 
 
@@ -144,6 +158,21 @@ class TrainingDataCreator:
             A list of indices of context words.
         """
         # Write Your Code Here
+        context_indices = []
+        window_size = self.config.window_size
+    
+        # Define the start and end of the context window
+        start = max(0, target_pos - window_size)
+        end = min(len(words), target_pos + window_size + 1)
+    
+        # Collect indices of context words, excluding the target word itself
+        for i in range(start, end):
+            if i != target_pos:  # Skip the target word
+                context_word = words[i]
+                if context_word in self.vocabulary.word2idx:  # Ensure word is in vocabulary
+                    context_indices.append(self.vocabulary.word2idx[context_word])
+    
+        return context_indices
         pass
 
 

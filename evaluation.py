@@ -1,6 +1,7 @@
 import torch
 import matplotlib.pyplot as plt
 from model import SkipGramModel
+from sklearn.manifold import TSNE
 
 
 def get_query_embed(
@@ -23,6 +24,7 @@ def get_query_embed(
         The query vector.
     """
     # Write Your Code Here
+    return w1_embed - w2_embed + w3_embed
     pass
 
 
@@ -33,6 +35,23 @@ def get_embedding(
     device: torch.device,
 ) -> torch.Tensor:
     # Write Your Code Here
+    """
+    Retrieves the embedding for a given word from the model.
+    
+    Args:
+        model: The trained Word2Vec model.
+        word2idx: Dictionary mapping words to indices.
+        word: The word to get the embedding for.
+        device: Device to perform computation on (CPU or GPU).
+    
+    Returns:
+        The embedding vector for the word.
+    """
+    word_idx = word2idx[word]
+    word_tensor = torch.tensor([word_idx], dtype=torch.long).to(device)
+    with torch.no_grad():
+        embedding = model.u_embeddings(word_tensor)
+    return embedding.squeeze(0)  # Remove batch dimension
     pass
 
 
@@ -101,6 +120,9 @@ def get_reduced_embeddings(embeddings):
         The reduced embeddings.
     """
     # Write Your Code Here
+    tsne = TSNE(n_components=2, random_state=42)
+    reduced_embeddings = tsne.fit_transform(embeddings)
+    return reduced_embeddings
     pass
 
 

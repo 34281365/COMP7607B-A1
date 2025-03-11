@@ -34,10 +34,32 @@ class SkipGramModel(nn.Module):
 
     def _create_u_embeddings(self, vocab_size: int, embedding_dim: int) -> nn.Embedding:
         # Write Your Code Here
+        """
+        Creates the input embedding layer for target words.
+    
+        Args:
+            vocab_size: Size of the vocabulary.
+            embedding_dim: Dimension of the word embeddings.
+    
+        Returns:
+            An nn.Embedding object for input embeddings.
+        """
+        return nn.Embedding(vocab_size, embedding_dim)
         pass
 
     def _create_v_embeddings(self, vocab_size: int, embedding_dim: int) -> nn.Embedding:
         # Write Your Code Here
+        """
+        Creates the output embedding layer for context words.
+    
+        Args:
+            vocab_size: Size of the vocabulary.
+            embedding_dim: Dimension of the word embeddings.
+    
+        Returns:
+            An nn.Embedding object for output embeddings.
+        """
+        return nn.Embedding(vocab_size, embedding_dim)
         pass
 
     def init_weights(self):
