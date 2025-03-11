@@ -18,6 +18,7 @@ from constants import (
 )
 import argparse
 import os
+from utils import set_random_seeds
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
@@ -29,6 +30,9 @@ def main(args):
     This function sets up the device, loads the data, builds the model,
     optimizes the model, trains the model, and evaluates the model.
     """
+    # Set seed for reproducibility
+    set_random_seeds()
+
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
