@@ -1,5 +1,6 @@
 import torch
 import torch.optim as optim
+import os
 from torch.utils.data import DataLoader
 from dataset import get_loader
 from model import SkipGramModel
@@ -35,6 +36,9 @@ def main(args):
 
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    # Set the Environment Variable
+    os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
 
     # Load dat: DataLoader[tuple[Tensor, Tensor]]a
     dataloader: DataLoader[tuple[torch.Tensor, torch.Tensor]] = get_loader(
